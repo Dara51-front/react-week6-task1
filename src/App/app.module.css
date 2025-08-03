@@ -45,3 +45,26 @@
   min-height: 20px;
   margin-top: 5px;
 }
+.registerButton:hover:enabled {
+  outline: none;
+  color: rgb(232, 115, 166);
+  background-color: rgb(134, 233, 255);
+  border: 2px solid hsl(190, 78%, 70%);
+}
+
+button:focus {
+  outline: none;
+  border: 3px solid hsl(190, 87%, 53%);
+}
+
+.registerButton {
+  font-size: 22px;
+  color: rgb(219, 138, 173);
+  margin-top: 15px;
+  width: 250px;
+  background-color: rgb(169, 241, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid hsl(190, 78%, 70%);
+}

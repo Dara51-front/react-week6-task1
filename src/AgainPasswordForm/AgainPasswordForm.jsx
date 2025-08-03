@@ -1,23 +1,17 @@
 import styles from "../App/app.module.css";
 import { useState } from "react";
 
-function AgainPasswordFormLayout({
-  againPassword,
-  setAgainPassword,
-  againPasswordError,
-  setAgainPasswordError,
-  password,
-}) {
+function AgainPasswordFormLayout({ userData, errorValidate }) {
   const onAgainPasswordChange = ({ target }) => {
-    setAgainPassword(target.value);
-    if (target.value !== password && target.value !== "") {
-      setAgainPasswordError("Пароли не совпадают");
+    userData.againPassword.setUserData(target.value);
+    if (target.value !== userData.password && target.value !== "") {
+      userData.againPasswordError.setErrorValidate("Пароли не совпадают");
     } else if (
-      target.value === password ||
+      target.value === userData.password ||
       target.value === "" ||
-      password === ""
+      userData.password === ""
     ) {
-      setAgainPasswordError("");
+      userData.againPasswordError.setErrorValidate("");
     }
   };
 
@@ -28,29 +22,22 @@ function AgainPasswordFormLayout({
         type="text"
         name="againPassword"
         placeholder="Еще раз пароль"
-        value={againPassword}
+        value={userData.againPassword}
         onChange={onAgainPasswordChange}
       />
 
-      <div className={styles.error}>{againPasswordError}</div>
+      <div className={styles.error}>{errorValidate.againPasswordError}</div>
     </>
   );
 }
 
-export default function AgainPasswordForm({
-  againPassword,
-  setAgainPassword,
-  againPasswordError,
-  setAgainPasswordError,
-  password,
-}) {
+export default function AgainPasswordForm({ name, label, error, ...props }) {
   return (
-    <AgainPasswordFormLayout
-      againPassword={againPassword}
-      setAgainPassword={setAgainPassword}
-      againPasswordError={againPasswordError}
-      setAgainPasswordError={setAgainPasswordError}
-      password={password}
-    />
+    <>
+      <label htmlFor={name}>{label}</label>
+      <input name={name} {...props} />
+
+      {error && <div className={styles.error}>{error}</div>}
+    </>
   );
 }

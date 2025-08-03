@@ -48,22 +48,12 @@ function PasswordFormLayout({
   );
 }
 
-export default function PasswordForm({
-  password,
-  setPassword,
-  passwordError,
-  setPasswordError,
-  againPassword,
-  setAgainPasswordError,
-}) {
+export default function PasswordForm({ name, label, error, ...props }) {
   return (
-    <PasswordFormLayout
-      password={password}
-      setPassword={setPassword}
-      passwordError={passwordError}
-      setPasswordError={setPasswordError}
-      againPassword={againPassword}
-      setAgainPasswordError={setAgainPasswordError}
-    />
+    <>
+      <label htmlFor={name}>{label}</label>
+      <input name={name} {...props} />
+      {error && <div className={styles.error}>{error}</div>}
+    </>
   );
 }
