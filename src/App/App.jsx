@@ -12,6 +12,7 @@ export default function App({}) {
     againPassword: "",
   });
   const [errorValidate, setErrorValidate] = useState({});
+  const [isDirty, setIsDirty] = useState(false);
 
   const submitButtonRef = useRef(null);
 
@@ -36,24 +37,25 @@ export default function App({}) {
     },
   };
   const validate = () => {
-    const error = validator(userData, userSchema);
-
+    const error = validator(userData, userSchema, isDirty);
     setErrorValidate(error);
     return Object.keys(error).length === 0;
   };
 
   useEffect(() => {
     validate();
-  }, [userData]);
+  }, [userData, isDirty]);
 
   const onSubmit = (event) => {
     event.preventDefault();
+    setIsDirty(true);
     const isValid = validate();
     if (!isValid) return;
     console.log(userData);
   };
 
   const handleChange = (event) => {
+    setIsDirty(true);
     const { value, name } = event.target;
     setUserData({ ...userData, [name]: value });
   };

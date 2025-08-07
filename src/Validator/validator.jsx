@@ -15,9 +15,12 @@ const validateRules = {
   },
 };
 
-export const validator = (values, config) => {
+export const validator = (values, config, isDirty) => {
   const error = {};
 
+  if (!isDirty) {
+    return error;
+  }
   for (const name in values) {
     const validationRules = config[name];
     for (const rule in validationRules) {
@@ -27,8 +30,10 @@ export const validator = (values, config) => {
       const hasError = validate && validate(values[name], value, values[ref]);
       if (hasError) {
         error[name] = message;
+        break;
       }
     }
   }
+
   return error;
 };
